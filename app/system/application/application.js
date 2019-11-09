@@ -1,13 +1,23 @@
-import { defaultOptions, SCREEN } from '../../configs/screen.options';
 import * as THREE from 'three';
 
-export class Application {
-  constructor() {
+import { SCREEN } from '../../configs/screen.options';
+import SceneManager from '../scene-manager/scene-manager';
+
+export default class Application {
+  constructor(options) {
     this.renderer;
+    this.options = options;
+    this.sceneManager;
   }
 
   initialize() {
     this.setupRenderer();
+    this.setupSceneManager();
+  }
+
+  setupSceneManager() {
+    this.sceneManager = new SceneManager(this);
+    this.sceneManager.start();
   }
 
   setupRenderer() {
