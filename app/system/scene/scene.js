@@ -21,6 +21,11 @@ export default class Scene extends THREE.Scene {
 
   update() {}
 
+  add(gameObject, x = 0, y = 0, z = 0) {
+    super.add(gameObject);
+    gameObject.position.set(x, y, z);
+  }
+
   setupRenderer(renderer) {
     this.renderer = renderer;
   }
@@ -28,7 +33,10 @@ export default class Scene extends THREE.Scene {
   setupCamera() {
     this.camera = new THREE.PerspectiveCamera(...Object.values(CAMERA.DEFAULT));
     this.camera.position.z = CAMERA.DEFAULT.z;
+    this.camera.position.setY(-20);
     this.camera.lookAt(this.position);
+    super.add(this.camera);
+    super.add(new THREE.AmbientLight(0x660000));
   }
 
   render() {
